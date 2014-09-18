@@ -1,0 +1,18 @@
+<%= render('layouts/errors', :object => @user) %>
+<br>
+<h5><b>Enter your e-mail address and password:</b></h5><br>
+<%= form_for(@user) do |f| %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.text_field :password %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation %>
+    <%= f.text_field :password_confirmation %>
+  </div>
+  <%= f.submit(:class => "btn btn-primary") %>
+<% end %>

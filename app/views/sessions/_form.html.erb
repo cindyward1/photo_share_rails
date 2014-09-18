@@ -1,0 +1,14 @@
+<%= render('layouts/errors', :object => @user) %>
+<br>
+<h5><b>Enter your e-mail address and password:</b></h5><br>
+<%= form_tag sessions_path do |f| %>
+  <div class="form-group">
+    <%= label_tag :email %>
+    <%= text_field_tag :email, params[:email] %>
+  </div>
+  <div class="form-group">
+    <%= label_tag :password %>
+    <%= text_field_tag :password %>
+  </div>
+  <div class="actions"><%= submit_tag "Login", class: "btn btn-primary" %>
+<% end %>
