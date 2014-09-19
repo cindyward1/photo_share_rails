@@ -1,8 +1,9 @@
 <% content_for(:title, "Upload Photo | Share Your Photos!") %>
 <div class='container'>
   <h3><u>Upload a New Photo</u></h3>
-
+    <%= render('form') %>
   <br><br><br>
   <hr>
-  <h4><%= link_to "Login to Your Account", root_url %></h4>
+  <h4><%= link_to "See All Photos", photos_path %></h4>
+  <h4><%= link_to "Logout", session_path("current"), :method => "delete" %></h4>
 </div>

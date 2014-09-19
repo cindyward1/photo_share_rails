@@ -1,0 +1,15 @@
+<% content_for(:title, "Show Photo | Share Your Photos!") %>
+<div class='container'>
+  <h3><u>Show a Photo</u></h3>
+    <div class="col-md-9 row">
+      <%= image_tag @photo.the_photo.url(:original), :class => "center-block" %>
+    </div>
+  <br><br>
+
+  <div class="col-md-4">
+    <hr>
+    <h4><%= link_to "Add a New Photo", new_photo_path %></h4>
+    <h4><%= link_to "See All Photos", photos_path %></h4>
+    <h4><%= link_to "Logout", session_path("current"), :method => "delete" %></h4>
+  </div>
+</div>

@@ -10,7 +10,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'autoprefixer-rails'
 gem 'textacular'
-gem 'bcrypt-ruby', '~>3.1.0'
+gem 'bcrypt-ruby', '~> 3.1.0'
+gem 'paperclip', '~> 4.2'
 
 group :development do
   gem 'better_errors'

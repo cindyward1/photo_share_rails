@@ -1,0 +1,8 @@
+<%= render('layouts/errors', :object => @photo) %>
+<h5><b><br>Select the file you would like to upload:</b></h5>
+<%= form_for @photo, :html => { :multipart => true } do |f| %>
+  <div class="upload">
+    <%= f.file_field :the_photo %>
+  </div>
+  <br><br><%= f.submit "Upload Photo", :class => "btn btn-primary pull_left" %>
+<% end %>
