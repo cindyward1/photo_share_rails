@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
   has_many :photos
+  has_many :tags, autosave: true, dependent: :destroy
+  has_many :photos, through: :tags
   has_secure_password
   validates :email, :presence => true, :uniqueness => true,
             length: { maximum: 50 }

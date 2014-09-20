@@ -1,5 +1,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :user
+  has_many :tags, autosave: true, dependent: :destroy
+  has_many :users, through: :tags, :as => :tagged_users
   has_attached_file :the_photo, :styles => { :small => "100x100>", :original => "400x400>>" }
   validates_attachment_presence :the_photo
   validates_attachment_size :the_photo, :less_than => 5.megabytes

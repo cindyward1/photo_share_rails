@@ -9,6 +9,12 @@ class PhotosController < ApplicationController
     @photo.the_photo = params[:photo][:the_photo]
     @photo.user_id = current_user.id
     if @photo.save
+      params[:photo][:user_id].each do |user_id|
+        if user_id != ""
+          tagged_user = User.find(user_id)
+          new_tag = Tag.create(:user_id => user_id, :photo_id => @photo.id)
+        end
+      end
       flash[:notice] = "The photo has been uploaded"
       redirect_to photo_path(@photo.id )
     else
@@ -22,6 +28,7 @@ class PhotosController < ApplicationController
 
   def index
     @photos = Photo.all.order(:user_id)
+    @tags = Tag.all
   end
 
   def edit
@@ -37,12 +44,27 @@ class PhotosController < ApplicationController
     if current_user.id != @photo.user_id
       flash[:alert] = "You may only edit your own photos"
       redirect_to photo_path(@photo)
-    end
-    if @photo.update(:the_photo => params[:photo][:the_photo])
-      flash[:notice] = "Photo updated"
-      redirect_to photos_path
     else
-      render 'edit'
+      if !params[:photo][:user_id].empty? && params[:photo][:user_id].last != ""
+        @photo.tags.destroy_all
+        params[:photo][:user_id].each do |user_id|
+          if user_id != ""
+            tagged_user = User.find(user_id)
+            new_tag = Tag.create(:user_id => user_id, :photo_id => @photo.id)
+            flash[:notice] = "Photo tagged"
+          end
+        end
+      end
+      if !params[:photo][:the_photo].nil?
+        if @photo.update(:the_photo => params[:photo][:the_photo])
+          flash[:notice] = flash[:notice] + " and updated"
+          redirect_to photos_path
+        else
+          render 'edit'
+        end
+      else
+        redirect_to photos_path
+      end
     end
   end
 
@@ -57,6 +79,4 @@ class PhotosController < ApplicationController
       redirect_to photos_path
     end
   end
-
-
 end
