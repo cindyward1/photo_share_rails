@@ -24,6 +24,7 @@ class PhotosController < ApplicationController
 
   def show
     @photo = Photo.find(params[:id])
+    @tagged_users = @photo.users
   end
 
   def index
@@ -33,8 +34,8 @@ class PhotosController < ApplicationController
 
   def edit
     @photo = Photo.find(params[:id])
+    @tagged_users = @photo.users
     if current_user.id != @photo.user_id
-      flash[:alert] = "You may only edit your own photos"
       redirect_to photo_path(@photo)
     end
   end
@@ -45,8 +46,8 @@ class PhotosController < ApplicationController
       flash[:alert] = "You may only edit your own photos"
       redirect_to photo_path(@photo)
     else
+      @photo.tags.destroy_all
       if !params[:photo][:user_id].empty? && params[:photo][:user_id].last != ""
-        @photo.tags.destroy_all
         params[:photo][:user_id].each do |user_id|
           if user_id != ""
             tagged_user = User.find(user_id)

@@ -5,5 +5,6 @@
   <br><br><br>
   <hr>
   <h4><%= link_to "See All Photos", photos_path %></h4>
+  <h4><%= link_to "See Your Profile", user_path(current_user.id) %></h4>
   <h4><%= link_to "Logout", session_path("current"), :method => "delete" %></h4>
 </div>

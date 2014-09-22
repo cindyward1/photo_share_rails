@@ -3,14 +3,21 @@
 <%= form_for @photo, :html => { :multipart => true } do |f| %>
   <div class="upload">
     <%= f.file_field :the_photo %>
-  </div><br>
-<h5><b>Tag any registered users in the photo:</b></h5>
+  </div><br><br><br>
   <div class="form_group">
-    <label for="tagged_users">Select user(s) to tag</label>
+    <label for="tagged_users">Select user(s) to tag in the photo:</label>
     <select id="tagged_users" name="photo[user_id][]" multiple="multiple">
+      <option></option>
     <% User.all.each do |user| %>
-      <option value="<%= user.id %>" <%= @photo.tags.include?(user_id) ?
-        " selected='selected'" : "" %>><%= user.email %></option>
+      <option value="<%= user.id %>"
+      <% if !@photo.id.nil? && !@tagged_users.nil? %>
+        <% @tagged_users.each do |tagged_user| %>
+          <% if tagged_user.id == user.id %>
+            selected
+          <% end %>
+        <% end %>
+      <% end %>
+      ><%= user.email %></option>
     <% end %>
     </select>
     <br><br>

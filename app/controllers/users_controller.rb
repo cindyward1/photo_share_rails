@@ -17,4 +17,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(session[:user_id])
+    @tags = Tag.where(:user_id => @user.id).order(:photo_id)
+    render "show"
+  end
+
 end
